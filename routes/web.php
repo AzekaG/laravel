@@ -6,8 +6,8 @@ use App\Http\Controllers\MainController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\GenresController;
 use App\Http\Controllers\FeedbacksClientController;
-use App\Models\Feedback;
-use App\Models\Genre;
+use App\Http\Controllers\Users\UsersController;
+
 
 
 
@@ -58,3 +58,12 @@ Route::post('/admin/feedbacks/', [FeedbacksController::class, 'store'])->name('a
 Route::delete('/admin/feedbacks/{feedback}', [FeedbacksController::class, 'destroy'])->name('adminfeedbackremove');
 Route::get('/admin/feedbacks/{feedback}/edit', [FeedbacksController::class, 'edit'])->name('adminfeedbacksedit');
 Route::put('/admin/feedbacks/{feedback}', [FeedbacksController::class, 'update'])->name('adminfeedbacksupdate');
+
+
+
+Route::resource('/admin/user', UsersController::class);
+Route::get('/admin/users', [UsersController::class,'index'])->name('userIndex');
+Route::get('/admin/users/create', [UsersController::class, 'create'])->name('userCreate');
+Route::post('/admin/users/', [UsersController::class, 'store'])->name('userStore');
+Route::get('/admin/user/{user}' ,[UsersController::class, 'show'])->name('userInfo');
+Route::delete('admin/user/{user}', [UsersController::class, 'destroy'])->name('userDelete');

@@ -1,8 +1,8 @@
 @extends('templates.main')
 
 @section('content')
-    <h1>Feedbacks</h1>
-    <a href="{{ route('adminfeedbackscreate') }}" class="btn btn-primary">Create Feedback</a>
+    <div class="reveal">Feedback</div>
+    <a href="{{ route('userCreate') }}" class="btn btn-primary">Create User</a>
     <table class="table">
         <thead>
             <tr>

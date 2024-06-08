@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -30,6 +31,7 @@ class DatabaseSeeder extends Seeder
 
         //создай 5 жанров в  котором будет по 5 книг. Но для создание нам еще нуно связать модели!
 
-        Genre::factory(5)->has(Book::factory()->count(5))->create();
+        // Genre::factory(5)->has(Book::factory()->count(5))->create();
+        User::factory(10)->create();
     }
 }
