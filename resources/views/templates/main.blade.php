@@ -104,6 +104,7 @@
     <header class="text-center" style="background: grey">
         <a href="{{ route('home') }}">Home</a>
         <a href="{{ route('contacts') }}">Contacts</a>
+        <a href="/admin/books/">Books</a>
         <a href="{{ route('adminfeedbacks') }}">Admin Feedback</a>
         <a href="{{ route('clientfeedbacks') }}">Client Feedback</a>
         <a href="{{ route('userIndex') }}">Users</a>

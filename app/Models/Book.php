@@ -10,6 +10,8 @@ class Book extends Model
 {
     use HasFactory;
 
+    protected $fillable = ['name', 'description', 'genre_id'];
+
     //нужно бдет добавить метод свзи между моделями
 
     //связь - 1 ко многим (1 книга - много категорий) 
@@ -32,7 +34,16 @@ class Book extends Model
     protected function shortDescription(): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => substr($attributes['description'], 0, 10),
+            get: fn (mixed $value, array $attributes) => substr($attributes['description'], 0, 30),
+        );
+    }
+
+    //все методы , котоыре названы как свойства будут их автоматически перезапсиывать. 
+    //здесь когда мы ставим картинку , то если в модель будет приходить null - будет віводиться альтернативное изображение
+    protected function image(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value) => $value ? $value : 'https://i.pinimg.com/originals/eb/65/14/eb6514742feb1f01de74e1f00eaf8c96.jpg'
         );
     }
 }

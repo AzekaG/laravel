@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Book;
+use App\Models\Genre;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
@@ -13,7 +15,21 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::all();
+
+        //так мы обращаемся к БД , и получаем только ассоциативный массив. Методы не будут работать , потмоу что здесь мы не привязаны к классу
+        // $books = DB::table('books')->get();
+        //так мы поулчаем обьект модели и можем пользтваться методами класса Бук
+        //возвращается не просто коллекция , а обьект класса пагинации
+        //осталось настроить цифры на странице , передавая етот обьект.
+        //latest - дать последние из коллекции
+        $books = Book::with('genre')->latest()->paginate(5);
+
+
+
+        // $books = Book::all();
+
+
+
         return view('admin.books.index', compact('books'));
     }
 
@@ -22,7 +38,10 @@ class BookController extends Controller
      */
     public function create()
     {
-        //
+        //делаем плак тобы получился ассоиативный массив - имя - айди. Это нужно для селекта
+        $genres = Genre::all()->pluck('name', 'id');
+
+        return view('admin.books.create', compact('genres'));
     }
 
     /**
@@ -30,7 +49,19 @@ class BookController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        /*   запрос - валидация ([
+        сейчас будет проверяться колонка в таблице именно name
+            'имя' => 'имя обазятельно|еще проверяем на уникальность'
+        ])*/
+        $request->validate([
+            'name' => 'required|unique:books,name',
+            'genre_id' => 'exists:genres,id'
+
+        ]);
+
+
+        Book::create($request->all());
+        return to_route('books.index');
     }
 
     /**
