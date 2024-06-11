@@ -53,14 +53,23 @@ class BookController extends Controller
         сейчас будет проверяться колонка в таблице именно name
             'имя' => 'имя обазятельно|еще проверяем на уникальность'
         ])*/
-        $request->validate([
-            'name' => 'required|unique:books,name',
-            'genre_id' => 'exists:genres,id'
+        // $request->validate([
+        //     'name' => 'required|unique:books,name',
+        //     'genre_id' => 'exists:genres,id'
 
-        ]);
+        // ]);
+        $book = Book::create($request->all());
+        if($request->image){
+            //здесь мы сохраняем файл
+            $path = $request->image->store("test");
+            $book->image = 'storage/' . $path;
+            $book->save();
+        }
+       
+        //здесь должны путь записать в БД
+       // dd($path);
 
-
-        Book::create($request->all());
+       
         return to_route('books.index');
     }
 

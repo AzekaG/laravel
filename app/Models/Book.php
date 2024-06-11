@@ -10,7 +10,7 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'genre_id'];
+    protected $fillable = ['name', 'description', 'genre_id' ,'pathimage'];
 
     //нужно бдет добавить метод свзи между моделями
 
