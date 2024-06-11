@@ -18,6 +18,7 @@
         color: #54b3d6;
 
         margin: 10 -.25rem;
+        padding: 10px;
         transition: color .3s ease-in-out, box-shadow .3s ease-in-out;
     }
 
