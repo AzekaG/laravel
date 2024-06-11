@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -48,4 +50,11 @@ class User extends Authenticatable
         'password' => 'hashed',
 
     ];
+
+    protected function pathimage(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value) => $value ? $value : 'https://i.pinimg.com/originals/eb/65/14/eb6514742feb1f01de74e1f00eaf8c96.jpg'
+        );
+    }
 }

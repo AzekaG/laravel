@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Book;
 use App\Models\Genre;
+use App\Models\Review;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -59,17 +60,17 @@ class BookController extends Controller
 
         // ]);
         $book = Book::create($request->all());
-        if($request->image){
+        if ($request->image) {
             //здесь мы сохраняем файл
             $path = $request->image->store("test");
             $book->image = 'storage/' . $path;
             $book->save();
         }
-       
-        //здесь должны путь записать в БД
-       // dd($path);
 
-       
+        //здесь должны путь записать в БД
+        // dd($path);
+
+
         return to_route('books.index');
     }
 
@@ -78,7 +79,9 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        //
+
+        $book = Book::with('reviews')->where('id', $book->id)->first();
+        return view('admin.books.info', compact('book'));
     }
 
     /**
@@ -86,7 +89,6 @@ class BookController extends Controller
      */
     public function edit(Book $book)
     {
-        //
     }
 
     /**
@@ -94,7 +96,6 @@ class BookController extends Controller
      */
     public function update(Request $request, Book $book)
     {
-        //
     }
 
     /**
@@ -102,6 +103,41 @@ class BookController extends Controller
      */
     public function destroy(Book $book)
     {
-        //
+    }
+    public function destroyreview(Review $review)
+    {
+
+        $review->delete();
+        $book = Book::with('reviews')->where('id', $review->book_id)->first();
+        return view('admin.books.info', compact('book'));
+    }
+
+    public function reviewedit(Review $review)
+    {
+        return view('admin.books.reviewedit', compact('review'));
+    }
+    public function reviewupdate(Request $request, Review $review)
+    {
+        $review->update($request->all());
+
+        $review->save();
+        $book = Book::with('reviews')->where('id', $review->book_id)->first();
+
+        return view('admin.books.info', compact('book'));
+    }
+
+
+    public function reviewcreate(Book $book)
+    {
+
+        return view('admin.books.reviewcreate', compact('book'));
+    }
+
+    public function storeReview(Request $request)
+    {
+
+        $review = Review::create($request->all());
+        $book = Book::with('reviews')->where('id', $review->book_id)->first();
+        return view('admin.books.info', compact('book'));
     }
 }

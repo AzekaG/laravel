@@ -20,7 +20,7 @@ class BookFactory extends Factory
         return [
             'name' => fake()->sentence(2),
             'description' => fake()->paragraph(rand(2,5)),
-             'image' => 'https://picsum.photos/250/350'
+            'image' => 'https://picsum.photos/250/350'
             ];
     }
 }

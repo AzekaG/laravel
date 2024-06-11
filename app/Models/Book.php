@@ -10,7 +10,7 @@ class Book extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'genre_id' ,'pathimage'];
+    protected $fillable = ['name', 'description', 'genre_id', 'pathimage'];
 
     //нужно бдет добавить метод свзи между моделями
 
@@ -45,5 +45,10 @@ class Book extends Model
         return Attribute::make(
             get: fn (mixed $value) => $value ? $value : 'https://i.pinimg.com/originals/eb/65/14/eb6514742feb1f01de74e1f00eaf8c96.jpg'
         );
+    }
+
+    function reviews()
+    {
+        return $this->hasMany(Review::class);
     }
 }

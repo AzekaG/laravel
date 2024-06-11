@@ -32,7 +32,7 @@
                     <td>{{ $book->genre->name }}</td>
                     <td>
                         <a href="{{ route('books.edit', ['book' => $book->id]) }}" class="btn btn-warning">Edit</a>
-
+                        <a href="{{ route('books.show', ['book' => $book->id]) }}" class="btn btn-info">Info</a>
                         {!! Form::open(['route' => ['books.destroy', $book->id], 'method' => 'delete']) !!}
                         {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
                         {!! Form::close() !!}

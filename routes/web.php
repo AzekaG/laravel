@@ -36,11 +36,14 @@ Route::resource('/admin/genres', GenresController::class);
 // Route::get('/genres/{genre}', function (Genre $genre) {
 //     dd($genre);
 // });
-
+// 
 
 Route::resource('/admin/books', BookController::class);
-
-
+Route::post('/admin/books/{review}/destroyreview', [BookController::class, 'destroyreview'])->name('delReview');
+Route::get('/admin/books/{review}/reviewedit', [BookController::class, 'reviewedit'])->name('editReview');
+Route::put('/admin/books/{review}/reviewupdate', [BookController::class, 'reviewupdate'])->name('updateReview');
+Route::get('/client/books/{book}', [BookController::class, 'reviewcreate'])->name('createReview');
+Route::post('/admin/books/{review}/storereview', [BookController::class, 'storereview'])->name('storeReview');
 
 
 
@@ -62,8 +65,8 @@ Route::put('/admin/feedbacks/{feedback}', [FeedbacksController::class, 'update']
 
 
 Route::resource('/admin/user', UsersController::class);
-Route::get('/admin/users', [UsersController::class,'index'])->name('userIndex');
+Route::get('/admin/users', [UsersController::class, 'index'])->name('userIndex');
 Route::get('/admin/users/create', [UsersController::class, 'create'])->name('userCreate');
 Route::post('/admin/users/', [UsersController::class, 'store'])->name('userStore');
-Route::get('/admin/user/{user}' ,[UsersController::class, 'show'])->name('userInfo');
+Route::get('/admin/user/{user}', [UsersController::class, 'show'])->name('userInfo');
 Route::delete('admin/user/{user}', [UsersController::class, 'destroy'])->name('userDelete');
